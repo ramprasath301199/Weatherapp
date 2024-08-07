@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('partials/style') %>
+</head>
+
+<body class="SignUp">
+    <div class="container ">
+        <div class="row" style="margin-top: 2%;">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background: aquamarine;
+            padding: 20px 40px 10px 40px;border-radius: 20px;">
+                <form action="/user/signup" onsubmit="return validate(event);">
+                    <h3 class="text-center">SignUp /
+                        <br><span style="font-size: medium;">You Already Have Account &nbsp;<a
+                                style="text-decoration: none;" href="/login">login</a></span>
+                    </h3>
+                    <div class="mb-3">
+                        <label for="" class="form-label">User Name</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Mobile</label>
+                        <input type="number" class="form-control" name="mobile" id="mobile" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="pass" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm" id="conpass"
+                            aria-describedby="helpId" placeholder="" />
+                    </div>
+                    <div class="mb-1 text-center" style="margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+    <%- include('partials/script.ejs') %>
+        <script>
+            function validate(event) {
+                $(".error").remove();
+                if ($("#name").val().trim() == "") {
+                    $("#name").after("<span class='error text-danger' style='position: relative;top:10px'>! Field is Required</span>")
+                    return false;
+                }
+                if ($("#email").val().trim() == "") {
+                    $("#email").after("<span class='error text-danger' style='position: relative;top:10px''>! Field is Required</span>")
+                    return false;
+                }
+                if ($("#mobile").val().trim() == "") {
+                    $("#mobile").after("<span class='error text-danger' style='position: relative;top:10px''>! Field is Required</span>")
+                    return false;
+                }
+                if ($("#pass").val().trim() == "") {
+                    $("#pass").after("<span class='error text-danger' style='position: relative;top:10px''>! Field is Required</span>")
+                    return false;
+                }
+                if ($("#conpass").val().trim() == "") {
+                    $("#conpass").after("<span class='error text-danger' style='position: relative;top:10px''>! Field is Required</span>")
+                    return false;
+                }
+            }
+        </script>
+</body>
+
+</html>

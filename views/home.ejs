@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <%- include('partials/nav') %>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <form action="/getcity">
+                        <h1 class="mt-3 text-center">Check Weather</h1>
+                        <div class="mb-3 mt-3">
+                            <input type="text" class="form-control" name="cityname" id="" aria-describedby="helpId"
+                                placeholder="" />
+                            <input type="hidden" name="token" id="token">
+                        </div>
+                        <div class="mb-3 mt-3" style="text-align: right;">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="response">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <% if (resdata) { %>
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h3 class="text-white"><i class="fas fa-city text-danger"></i>
+                                        &nbsp;&nbsp;
+                                        <%= resdata.name%>
+                                    </h3>
+                                    <h3 class="text-white">
+                                        <i class="fa-solid fa-temperature-three-quarters text-primary"></i>&nbsp;&nbsp;
+                                        <%= resdata.main.temp %>
+                                    </h3>
+                                    <h3 class="text-white"> <img src="assets/humidity.png" alt="" srcset=""
+                                            width="30px">
+                                        <%= resdata.main.humidity %>
+                                    </h3>
+                                </div>
+                            </div>
+                            <% } %>
+                                <% if (errordata) { %>
+                                    <h3 class="text-danger text-center"> Data Not Found </h3>
+                                    <% } %>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+
+            </div>
+        </div>
+        <%- include('partials/script.ejs') %>
+            <script>
+                $(document).ready(() => {
+                    var token = localStorage.getItem("token");
+                    $("#token").val(token);
+                })
+            </script>
+</body>
+
+</html>

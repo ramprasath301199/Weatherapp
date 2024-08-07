@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('partials/style') %>
+</head>
+
+<body class="login">
+    <div class="container ">
+        <div class="row" style="margin-top: 10%;">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <form onsubmit="validate(event);">
+                    <h3 class="text-center">Login /
+                        <br><span style="font-size: medium;">You Dont Have Account &nbsp;<a
+                                style="text-decoration: none;" href="/signup">SignUp</a></span>
+                    </h3>
+                    <div class="mb-3">
+                        <label for="" class="form-label">User Name</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="pass" id="pass" aria-describedby="helpId"
+                            placeholder="" />
+                    </div>
+                    <div class="mb-3 text-center" style="margin-top: 40px;">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+    <%- include('partials/script.ejs') %>
+        <script>
+            function validate(event) {
+                event.preventDefault();
+                var status = true;
+                $(".error").remove();
+                if ($("#name").val().trim() == "") {
+                    $("#name").after("<span class='error text-danger' style='position: relative;top:10px'>! Field is Required</span>")
+                    status = false;
+                }
+                if ($("#pass").val().trim() == "") {
+                    $("#pass").after("<span class='error text-danger' style='position: relative;top:10px''>! Field is Required</span>")
+                    status = false;
+                }
+                if (status) {
+                    $.ajax({
+                        method: "GET",
+                        url: `http://localhost:3011/user/signin?name=${$("#name").val()}&password=${$("#pass").val()}`,
+                        success: (data) => {
+                            if (data.message == "User Not Found")
+                                alert("Incorrect UserName Password");
+                            else if (data.message == "Password Incorrect")
+                                alert("Incorrect Password");
+                            else
+                                localStorage.setItem("token", data.token);
+                                location.href = "/home";
+                        },
+                        error: (err) => {
+                            console.log("err", err);
+                        }
+                    })
+                }
+            }
+        </script>
+</body>
+
+</html>
